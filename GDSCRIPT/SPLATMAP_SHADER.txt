@@ -1,0 +1,97 @@
+	shader_type spatial;
+	render_mode cull_disabled;
+	
+	uniform sampler2D splatmap;
+	uniform sampler2D tex_base;
+	uniform sampler2D tex_r;
+	uniform sampler2D tex_g;
+	uniform sampler2D tex_b;
+	uniform sampler2D tex_a;
+	
+	uniform sampler2D norm_base;
+	uniform sampler2D norm_r;
+	uniform sampler2D norm_g;
+	uniform sampler2D norm_b;
+	uniform sampler2D norm_a;
+	
+	uniform sampler2D bump_base;
+	uniform sampler2D bump_r;
+	uniform sampler2D bump_g;
+	uniform sampler2D bump_b;
+	uniform sampler2D bump_a;
+	
+	uniform sampler2D rough_base;
+	uniform sampler2D rough_r;
+	uniform sampler2D rough_g;
+	uniform sampler2D rough_b;
+	uniform sampler2D rough_a;
+	
+	uniform float base_res = 5; 
+	uniform float r_res = 5; 
+	uniform float g_res = 5;
+	uniform float b_res = 5;
+	uniform float a_res = 5;
+	
+	
+	
+
+		
+	void fragment() {
+		
+		vec3 base_col;
+		vec3 r_col;
+		vec3 g_col;
+		vec3 b_col;
+		vec3 a_col;
+		
+		vec3 base_norm;
+		vec3 r_norm;
+		vec3 g_norm;
+		vec3 b_norm;
+		vec3 a_norm;
+		
+		vec4 texs=texture(splatmap,UV);
+		float rval = texs.r;
+		float gval = texs.g;
+		float bval = texs.b;
+		float aval = 1.0-texs.a;
+		
+		
+		float base_rough;
+		float r_rough;
+		float g_rough;
+		float b_rough;
+		float a_rough;
+		
+		float baseval = max(0.0,1.0-(rval+gval+bval+aval));
+		
+		base_col = texture(tex_base,UV*base_res).rgb * baseval;
+		r_col = texture(tex_r,UV*r_res).rgb * rval;
+		g_col = texture(tex_g,UV*g_res).rgb * gval;
+		b_col = texture(tex_b,UV*a_res).rgb * bval;
+		a_col = texture(tex_a,UV*a_res).rgb * aval;
+		
+		ALBEDO = base_col + r_col + g_col + b_col + a_col;
+		
+		base_norm = texture(norm_base,UV*base_res).rgb * baseval;
+		r_norm = texture(norm_r,UV*r_res).rgb * rval;
+		g_norm = texture(norm_g,UV*g_res).rgb * gval;
+		b_norm = texture(norm_b,UV*b_res).rgb * bval;
+		a_norm = texture(norm_a,UV*a_res).rgb * aval;
+		
+		NORMALMAP = base_norm + r_norm + g_norm + b_norm + a_norm;
+		
+		base_rough = texture(rough_base,UV*base_res).x * (baseval);
+		r_rough = texture(rough_r,UV*r_res).x * (rval);
+		g_rough = texture(rough_g,UV*g_res).x * (gval);
+		b_rough = texture(rough_b,UV*b_res).x * (bval);
+		a_rough = texture(rough_a,UV*a_res).x * (aval);
+		
+		// TODO combine Normals and roughness maps and then try to take roughness maps out of normal's alpha!
+		ROUGHNESS = base_rough + r_rough + g_rough + b_rough + a_rough;
+
+		SPECULAR = 0.4;
+		NORMALMAP_DEPTH = 1.0;
+		CLEARCOAT_GLOSS = 0.5;
+
+    }
