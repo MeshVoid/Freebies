@@ -3,3 +3,7 @@ Free source for various code. Go to the appropriate folder and download what you
 
 Currently available here:
 
+GDSCRIPT FOLDER:
+
+LOD SCRIPTS
+SPLATMAP SHADER
