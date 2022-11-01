@@ -7,21 +7,25 @@ var Distance_Chunk_1002 = 0
 var Distance_Chunk_1003 = 0
 var Distance_Chunk_1004 = 0
 var Distance_Chunk_1005 = 0
+
 var Distance_Chunk_2001 = 0
 var Distance_Chunk_2002 = 0
 var Distance_Chunk_2003 = 0
 var Distance_Chunk_2004 = 0
 var Distance_Chunk_2005 = 0
+
 var Distance_Chunk_3001 = 0
 var Distance_Chunk_3002 = 0
 var Distance_Chunk_3003 = 0
 var Distance_Chunk_3004 = 0
 var Distance_Chunk_3005 = 0
+
 var Distance_Chunk_4001 = 0
 var Distance_Chunk_4002 = 0
 var Distance_Chunk_4003 = 0
 var Distance_Chunk_4004 = 0
 var Distance_Chunk_4005 = 0
+
 var Distance_Chunk_5001 = 0
 var Distance_Chunk_5002 = 0
 var Distance_Chunk_5003 = 0
@@ -215,6 +219,7 @@ func _physics_process(delta):
 		chunk_5003()
 		chunk_5004()
 		chunk_5005()
+		
 		pCounter=0.0
 
 
@@ -226,18 +231,21 @@ func chunk_1001():
 	Distance_Chunk_1001 = $Chunk_1001_LOD0.global_transform.origin.distance_to( get_tree().get_root().get_node("World/Player").get_global_transform().origin )
 
 	if Distance_Chunk_1001 > Dist_01 and Distance_Chunk_1001 < Dist_02 and Distance_Chunk_1001 < Dist_03:
+
 		$Chunk_1001_LOD0.visible = false
 		$Chunk_1001_LOD1.visible = true
 		$Chunk_1001_LOD2.visible = false
 		$Chunk_1001_LOD3.visible = false
 
 	elif Distance_Chunk_1001 > Dist_02:
+
 		$Chunk_1001_LOD0.visible = false
 		$Chunk_1001_LOD1.visible = false
 		$Chunk_1001_LOD2.visible = true
 		$Chunk_1001_LOD3.visible = false
 		
 	elif Distance_Chunk_1001 > Dist_03:
+	
 		$Chunk_1001_LOD0.visible = false
 		$Chunk_1001_LOD1.visible = false
 		$Chunk_1001_LOD2.visible = false
