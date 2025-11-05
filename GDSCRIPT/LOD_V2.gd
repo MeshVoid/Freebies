@@ -38,24 +38,25 @@ pCounter+=delta
 
 
 
-func get_active_chunk(_chaunk:Array,_conteiner)->void:
+func get_active_chunk(_chunk:Array,_conteiner)->void:
 	# World/Player - those are two node hierarchies that mush be present too!
 	var player =get_node("../Player").get_global_transform().origin 
 	var label =get_node("../Label") 
-	var hook_position  = _chaunk[0].global_transform.origin
+	var hook_position  = _chunk[0].global_transform.origin
 	
 	Distance_Chunk = player.distance_to(hook_position)
 	
 		#159                       #250                         #400
 	if Distance_Chunk > Dist_01 and  Distance_Chunk < Dist_02 and Distance_Chunk < Dist_03:
-		_chaunk[0].visible = false
-		_chaunk[1].visible = false
-		_chaunk[2].visible = true
+		_chunk[0].visible = false
+		_chunk[1].visible = false
+		_chunk[2].visible = true
 	elif int(Distance_Chunk) > Dist_02  and int(Distance_Chunk) < Dist_03: #399
-		_chaunk[0].visible = false
-		_chaunk[1].visible = true
-		_chaunk[2].visible = false
+		_chunk[0].visible = false
+		_chunk[1].visible = true
+		_chunk[2].visible = false
 	elif Distance_Chunk > Dist_03:
-		_chaunk[0].visible = true
-		_chaunk[1].visible = false
-		_chaunk[2].visible = false
+		_chunk[0].visible = true
+		_chunk[1].visible = false
+
+		_chunk[2].visible = false
